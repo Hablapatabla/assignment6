@@ -19,6 +19,7 @@
 			left: 20%;
 		}
 
+		/*Some of this css is lifted *lovingly* from W3Schools at https://www.w3schools.com/css/tryit.asp?filename=trycss_transparency*/
 		div.box {
 			background-color: #ffffff;
   			border: 1px solid black;
@@ -39,6 +40,8 @@
 	</style>
 
 	<script language="Javascript">
+		//Objects in Art array. 'large' array element is not used. divids reflect unique div class
+		//names in the HTML body
 		let art = [
 			{ name: "Elevator",
 			  price: 100,
@@ -67,6 +70,9 @@
 			  divid: "fund"}
 		]
 
+		/*
+		 * Constructs HTML img tag using 'art' array object members
+		 */
 		function displayInit() {
 			for(var i = 0; i < 5; ++i) {
 				document.write("<img src='" + art[i].small +"' id='" + art[i].name  + "'>");
@@ -76,14 +82,13 @@
 		displayInit();
 
 		$(document).ready(function() {
+			//Hide images held in div's that would otherwise be displayed on load
 			$(".elevatord").hide();
 			$(".supermand").hide();
 			$(".vaderd").hide();
 			$(".artistd").hide();
 			$(".fund").hide();  
 			$(".box").hide();
-
-			//$('#test').hide();
 
 			$('#Elevator, #Superman, #Vader, #Artist, #Fun').mouseenter(function(e){
 				e.preventDefault();
@@ -110,6 +115,10 @@
 				var info = "Title: " + art[index].name + "<br> Price: $" + art[index].price;
 				$('.box p').html(info);
 
+				//This is pretty janky. I basically have the pane as a single invisible box
+				//styled div with text in it that changes depending on the art clicked.
+				//The div is then moved to overlap the image and rendered visible.
+
 				var elev_el = document.getElementById(art[index].name);
 				var rect = elev_el.getBoundingClientRect();
 				$('.box').css({
@@ -125,11 +134,8 @@
 				return false;
 			});
 
-
 			}
-		);
-
-	
+		);	
 		
 	</script>
 
