@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Gallery</title>
+
+	<script src="library.js"></script>
+
+
+	<style>
+		img {
+			width:18.5%;
+			padding: 5px 5px;
+		}
+
+		div {
+			position: absolute;
+			width: 300%;
+			left: 20%;
+		}
+
+		div.box {
+			background-color: #ffffff;
+  			border: 1px solid black;
+  			opacity: 0.8;
+  			z-index: 2000;
+		}
+	
+		div.box p {
+			position: relative;
+			text-align: center;
+			top: 30%;
+			bottom: 70%;
+  			font-weight: bold;
+  			color: #000000;
+		}
+
+
+	</style>
+
+	<script language="Javascript">
+		let art = [
+			{ name: "Elevator",
+			  price: 100,
+			  small: "1.jpeg",
+			  large: "2.jpg",
+			  divid: "elevatord"},
+			{ name: "Superman",
+			  price: 400,
+			  small: "3.jpeg",
+			  large: "4.jpg",
+			  divid: "supermand"},
+			{ name: "Vader",
+			  price: 1000,
+			  small: "5.jpeg",
+			  large: "6.jpg",
+			  divid: "vaderd"},
+			{ name: "Artist",
+			  price: 100,
+			  small: "7.jpeg",
+			  large: "8.jpg",
+			  divid: "artistd"},
+			{ name: "Fun",
+			  price: 200,
+			  small: "9.jpeg",
+			  large: "10.jpg",
+			  divid: "fund"}
+		]
+
+		function displayInit() {
+			for(var i = 0; i < 5; ++i) {
+				document.write("<img src='" + art[i].small +"' id='" + art[i].name  + "'>");
+			}
+
+		}
+		displayInit();
+
+		$(document).ready(function() {
+			$(".elevatord").hide();
+			$(".supermand").hide();
+			$(".vaderd").hide();
+			$(".artistd").hide();
+			$(".fund").hide();  
+			$(".box").hide();
+
+			//$('#test').hide();
+
+			$('#Elevator, #Superman, #Vader, #Artist, #Fun').mouseenter(function(e){
+				e.preventDefault();
+				var index = $(this).index();
+				var str = "." + art[index].divid;
+				$(str).fadeIn(500);
+				return false;
+			});
+
+			$('#Elevator, #Superman, #Vader, #Artist, #Fun').mouseout(function(e){
+				e.preventDefault();
+				var index = $(this).index();
+				var str = "." + art[index].divid;
+				$(str).hide();
+				return false;
+			});
+
+
+
+		
+			$('#Elevator, #Superman, #Vader, #Artist, #Fun').click(function(e){
+				e.preventDefault();
+				var index = $(this).index();
+				var info = "Title: " + art[index].name + "<br> Price: $" + art[index].price;
+				$('.box p').html(info);
+
+				var elev_el = document.getElementById(art[index].name);
+				var rect = elev_el.getBoundingClientRect();
+				$('.box').css({
+					'position': 'absolute',
+					'top': (rect.top + 5),
+					'left': (rect.left + 5),
+					'width': ((rect.right - rect.left) - 12),
+					'height': ((rect.bottom - rect.top) - 12)
+				});	
+
+				$('.box').show();
+				$('.box').fadeOut(5000);
+				return false;
+			});
+
+
+			}
+		);
+
+	
+		
+	</script>
+
+
+</head>
+	
+<body>
+	<h1>Welcome to the Figure Fantasy Gallery!</h1>
+	<p>All art credits go to <a href="https://www.danielpicard.com/">Daniel Picard </a></p>
+
+	<div class="elevatord"> <img src="2.jpg" alt="Elevator Img"></div>
+	<div class="supermand"> <img src="4.jpg" alt="Superman Img"></div>
+	<div class="vaderd"> <img src="6.jpg" alt="Vader Img"></div>
+	<div class="artistd"> <img src="8.jpg" alt="Artist Img"></div>
+	<div class="fund"> <img src="10.jpg" alt="Fun Img"></div>
+
+	<div class="box">
+		<p>Empty</p>
+	</div>
+
+
+</body>
+</html>
